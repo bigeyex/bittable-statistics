@@ -1,73 +1,29 @@
 import './App.css';
-import { bitable, TableMeta } from "@lark-base-open/js-sdk";
-import { Button, Form } from '@douyinfe/semi-ui';
+import { IconSimilarity } from '@douyinfe/semi-icons';
+import { Button, Form, Nav } from '@douyinfe/semi-ui';
 import { BaseFormApi } from '@douyinfe/semi-foundation/lib/es/form/interface';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function App() {
-  const [tableMetaList, setTableMetaList] = useState<TableMeta[]>();
-  const formApi = useRef<BaseFormApi>();
-  const addRecord = useCallback(async ({ table: tableId }: { table: string }) => {
-    if (tableId) {
-      const table = await bitable.base.getTableById(tableId);
-      table.addRecord({
-        fields: {},
-      });
-    }
-  }, []);
-  useEffect(() => {
-    Promise.all([bitable.base.getTableMetaList(), bitable.base.getSelection()])
-      .then(([metaList, selection]) => {
-        setTableMetaList(metaList);
-        formApi.current?.setValues({ table: selection.tableId });
-      });
-  }, []);
+  const navigate = useNavigate();
 
   return (
     <main className="main">
-      <h4>
-        Edit <code>src/App.tsx</code> and save to reload
-      </h4>
-      <Form labelPosition='top' onSubmit={addRecord} getFormApi={(baseFormApi: BaseFormApi) => formApi.current = baseFormApi}>
-        <Form.Slot label="Development guide">
-          <div>
-            <a href="https://lark-technologies.larksuite.com/docx/HvCbdSzXNowzMmxWgXsuB2Ngs7d" target="_blank"
-              rel="noopener noreferrer">
-              Base Extensions Guide 1
-            </a>
-            、
-            <a href="https://bytedance.feishu.cn/docx/HazFdSHH9ofRGKx8424cwzLlnZc" target="_blank"
-              rel="noopener noreferrer">
-              多维表格插件开发指南
-            </a>
-          </div>
-        </Form.Slot>
-        <Form.Slot label="API">
-          <div>
-            <a href="https://lark-technologies.larksuite.com/docx/Y6IcdywRXoTYSOxKwWvuLK09sFe" target="_blank"
-              rel="noopener noreferrer">
-              Base Extensions Front-end API
-            </a>
-            、
-            <a href="https://bytedance.feishu.cn/docx/HjCEd1sPzoVnxIxF3LrcKnepnUf" target="_blank"
-              rel="noopener noreferrer">
-              多维表格插件API
-            </a>
-          </div>
-        </Form.Slot>
-        <Form.Select field='table' label='Select Table' placeholder="Please select a Table" style={{ width: '100%' }}>
-          {
-            Array.isArray(tableMetaList) && tableMetaList.map(({ name, id }) => {
-              return (
-                <Form.Select.Option key={id} value={id}>
-                  {name}
-                </Form.Select.Option>
-              );
-            })
-          }
-        </Form.Select>
-        <Button theme='solid' htmlType='submit'>Add Record</Button>
-      </Form>
+      <div style={{ width: '100%' }}>
+        <Nav
+            bodyStyle={{ height: '90vh' }}
+            style={{ width: '100%' }}
+            items={[
+                { itemKey: 'descriptive', text: '描述性统计', icon: <IconSimilarity /> },
+                { itemKey: 'crosstabs', text: '交叉（透视）表', icon: <IconSimilarity /> },
+                { itemKey: 'correlation', text: '相关系数', icon: <IconSimilarity /> },
+                { itemKey: 'regression', text: '回归分析', icon: <IconSimilarity /> },
+                { itemKey: 'hypotest', text: '假设检验', icon: <IconSimilarity /> },
+            ]}
+            onSelect={item => navigate(item.itemKey as string)}
+        />
+      </div>
     </main>
   )
 }

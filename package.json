@@ -24,9 +24,14 @@
     "@douyinfe/semi-foundation": "^2.38.0",
     "@douyinfe/semi-ui": "^2.36.0",
     "@lark-base-open/js-sdk": "^0.3.0",
+    "@reduxjs/toolkit": "^2.1.0",
     "i18next": "^23.5.1",
     "i18next-browser-languagedetector": "^7.1.0",
+    "plotly.js": "^2.28.0",
     "react-i18next": "^13.2.2",
+    "react-plotly.js": "^2.6.0",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.21.3",
     "reset-css": "^5.0.1"
   }
 }

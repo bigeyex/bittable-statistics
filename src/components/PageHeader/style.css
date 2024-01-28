@@ -1,0 +1,13 @@
+.pageHeader {
+    display: flex;
+    flex-direction: row;
+    padding: 0 5px;
+}
+
+.pageHeader h2 {
+    padding: 7px;
+}
+
+.pageBody {
+    padding: 0 15px;
+}
