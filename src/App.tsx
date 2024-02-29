@@ -15,9 +15,6 @@ export default function App() {
             bodyStyle={{ height: '90vh' }}
             style={{ width: '100%' }}
             items={[
-                { itemKey: 'descriptive', text: '描述性统计', icon: <IconSimilarity /> },
-                { itemKey: 'crosstabs', text: '交叉（透视）表', icon: <IconSimilarity /> },
-                { itemKey: 'correlation', text: '相关系数', icon: <IconSimilarity /> },
                 { itemKey: 'regression', text: '回归分析', icon: <IconSimilarity /> },
                 { itemKey: 'hypotest', text: '假设检验', icon: <IconSimilarity /> },
             ]}

@@ -6,6 +6,7 @@ import LoadApp from './components/LoadApp';
 import store from './store';
 import { Provider } from 'react-redux'
 import PageDescriptive from './components/PageDescriptive';
+import PageRegression from './components/PageRegression';
 // import './locales/i18n' // 支持国际化
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
@@ -13,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <BrowserRouter>
                 <Routes>
                     <Route path="/home" element={<App />} />
-                    <Route path="/" element={<PageDescriptive />} />
+                    <Route path="/" element={<PageRegression />} />
                 </Routes>
             </BrowserRouter>
         </LoadApp>
