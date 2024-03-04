@@ -5,11 +5,11 @@ function getValueOfField(fieldData, fieldType) {
     if (fieldType === FieldType.DateTime) { // like 1705420800000
         return (new Date(fieldData)).toLocaleDateString();
     }
-    else if(typeof fieldData === "object") { // case 2: [{type: 'text', text: '{TEXT}'}] // each line is one 
-        return fieldData.text;
-    }
     else if(Array.isArray(fieldData)) { // case 3: [{id: 'OPTION_ID', text: 'option_text'}] // multiple choice
         return (fieldData.map(item => item.text)).join("\n");
+    }
+    else if(typeof fieldData === "object") { // case 2: [{type: 'text', text: '{TEXT}'}] // each line is one 
+        return fieldData.text;
     }
     else { // case: number
         return fieldData;
@@ -33,7 +33,7 @@ export async function getFieldMap() {
 export async function getValuesByFieldIds(fieldIds) {
     const table = await bitable.base.getActiveTable();
 
-    const fieldMetaMap = getFieldMap();
+    const fieldMetaMap = await getFieldMap();
     const recordList = await table.getRecordList();
     let result:any[] = [];
     for (const record of recordList) {

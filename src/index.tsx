@@ -14,8 +14,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <LoadApp >
             <BrowserRouter>
                 <Routes>
-                    <Route path="/home" element={<App />} />
-                    <Route path="/" element={<PageHypothesis />} />
+                    <Route path="/" element={<App />} />
+                    <Route path="/hypotest" element={<PageHypothesis />} />
                     <Route path="/regression" element={<PageRegression />} />
                 </Routes>
             </BrowserRouter>
