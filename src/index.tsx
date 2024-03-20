@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import App from './App';
 import LoadApp from './components/LoadApp';
 import store from './store';
@@ -12,13 +12,13 @@ import PageHypothesis from './components/PageHypothesis';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
         <LoadApp >
-            <BrowserRouter>
+            <HashRouter>
                 <Routes>
                     <Route path="/" element={<App />} />
                     <Route path="/hypotest" element={<PageHypothesis />} />
                     <Route path="/regression" element={<PageRegression />} />
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
         </LoadApp>
     </Provider>
 )
