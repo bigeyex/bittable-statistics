@@ -1,5 +1,6 @@
 {
   "modules": {
+    "crosstabs": "CrossTabs / Pivot Table",
     "regression": "Regression",
     "hypotest": "Hypothesis Test"
   },
@@ -19,11 +20,44 @@
     "categoricalField": "Categorical Field",
     
     "selectTestType": "Select Test Type",
-    "testType": "Test Type"
+    "testType": "Test Type",
+
+    "chisquaredValue": "Chi-Squared",
+    "statvalue": "Value",
+    "dof": "Degrees of Freedom",
+    "oneSided": "One-sided",
+    "twoSided": "Two-sided"
   },
 
+  "crosstabs": {
+    "rowfield": "Row Field",
+    "colfield": "Column Field",
+    "aggmethod": "Aggregation Method",
+    "selectaggmethod": "Select Aggregation Method",
+    "valuefield": "Value Field",
+    "totals": "Totals",
+
+    "count": "Count",
+    "countFractionRow": "Count - % of Rows",
+    "countFractionCol": "Count - % of Columns",
+    "countFractionTotal": "Count - % of Total",
+
+    "countUnique": "Count Unique Values",
+    
+    "sum": "Sum",
+    "sumFractionRow": "Sum - % of Rows",
+    "sumFractionCol": "Sum - % of Columns",
+    "sumFractionTotal": "Sum - % of Total",
+
+    "average": "Average",
+    "median": "Median",
+    "minimum": "Minimum Value",
+    "maximum": "Maximum Value"
+
+  },
   "pleaseSelectField": "Select Field",
   "dependentVariableY": "Dependent Variable (Y)",
   "independentVariableX": "Independent Variable (X)",
-  "run": "Run"
+  "run": "Run",
+  "calculating": "Calculating..."
 }

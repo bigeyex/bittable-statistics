@@ -5,6 +5,7 @@ import { oneWayANOVA } from 'statsmodels-js';
 import Statistics from 'statistics.js';
 
 import { getValuesByFieldId, getValuesByFieldIds, getFieldMap } from '../lib/bittable';
+import { T } from '../locales/i18n';
 
 
 export const descriptiveSlice = createSlice({
@@ -48,8 +49,8 @@ async function chiSquaredTest({yFieldId, xFieldId}) {
     console.log(statData, statVars);
     const stats = new Statistics(statData, statVars);
     const chiSquared = stats.chiSquaredTest('xField', 'yField');
-    return `卡方统计量：${chiSquared.PearsonChiSquared}
-            自由度：${chiSquared.degreesOfFreedom}
+    return `${T('hypothesis.chisquaredValue')}: ${chiSquared.PearsonChiSquared}
+            ${T('hypothesis.dof')}: ${chiSquared.degreesOfFreedom}
             P < ${chiSquared.significance}`
 }
 
@@ -59,10 +60,10 @@ async function oneSampleTTest({yFieldId, param}) {
     const statVars = { yField: {scale: 'metric'} };
     const stats = new Statistics(statData, statVars);
     const oneSample = stats.studentsTTestOneSample('yField', param);
-    return `t统计量：${oneSample.tStatistic}
-            自由度：${oneSample.degreesOfFreedom}
-            P（单侧） < ${oneSample.pOneSided}
-            P（双侧） < ${oneSample.pTwoSided}`
+    return `t-${T('hypothesis.statvalue')}: ${oneSample.tStatistic}
+            ${T('hypothesis.dof')}: ${oneSample.degreesOfFreedom}
+            P (${T('hypothesis.oneSided')}) < ${oneSample.pOneSided}
+            P (${T('hypothesis.twoSided')}) < ${oneSample.pTwoSided}`
 }
 
 async function indTTest({yFieldId, xFieldId}) {
@@ -71,10 +72,10 @@ async function indTTest({yFieldId, xFieldId}) {
     const statVars = { xField: {scale: 'interval'}, yField: {scale: 'interval'} };
     const stats = new Statistics(statData, statVars);
     const twoSamples = stats.studentsTTestTwoSamples('xField', 'yField', { dependent: false });
-    return `t统计量：${twoSamples.tStatistic}
-            自由度：${twoSamples.degreesOfFreedom}
-            P（单侧） < ${twoSamples.pOneSided}
-            P（双侧） < ${twoSamples.pTwoSided}`
+    return `t-${T('hypothesis.statvalue')}: ${twoSamples.tStatistic}
+            ${T('hypothesis.dof')}: ${twoSamples.degreesOfFreedom}
+            P (${T('hypothesis.oneSided')}) < ${twoSamples.pOneSided}
+            P (${T('hypothesis.twoSided')}) < ${twoSamples.pTwoSided}`
 }
 
 async function pairedTTest({yFieldId, xFieldId}) {
@@ -83,10 +84,10 @@ async function pairedTTest({yFieldId, xFieldId}) {
     const statVars = { xField: {scale: 'interval'}, yField: {scale: 'interval'} };
     const stats = new Statistics(statData, statVars);
     const twoSamples = stats.studentsTTestTwoSamples('xField', 'yField', { dependent: true });
-    return `t统计量：${twoSamples.tStatistic}
-            自由度：${twoSamples.degreesOfFreedom}
-            P（单侧） < ${twoSamples.pOneSided}
-            P（双侧） < ${twoSamples.pTwoSided}`
+    return `t-${T('hypothesis.statvalue')}: ${twoSamples.tStatistic}
+            ${T('hypothesis.dof')}: ${twoSamples.degreesOfFreedom}
+            P (${T('hypothesis.oneSided')}) < ${twoSamples.pOneSided}
+            P (${T('hypothesis.twoSided')}) < ${twoSamples.pTwoSided}`
 }
 
 async function oneWayAnova({yFieldId, xFieldId}) {
@@ -100,7 +101,7 @@ async function oneWayAnova({yFieldId, xFieldId}) {
         valuesByX[x].push(y);
     }
     const anovaResult = oneWayANOVA(...Object.values(valuesByX));
-    return `F统计量：${anovaResult.statistic}
+    return `F-${T('hypothesis.statvalue')}: ${anovaResult.statistic}
             P < ${anovaResult.pValue}`;
 }
 
@@ -108,8 +109,7 @@ async function oneWayAnova({yFieldId, xFieldId}) {
 export const { setField, setTestType, setResult, setError } = descriptiveSlice.actions;
 
 export const doHypothesisTest = (payload) => async (dispatch, getState) => {
-    dispatch(setResult('计算中...'));
-    console.log(payload);
+    dispatch(setResult(T('calculating')));
     let resultStr = '';
     if (payload.testType === 'chiSquared') {
         resultStr = await chiSquaredTest(payload);

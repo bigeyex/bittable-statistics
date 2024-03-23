@@ -1,11 +1,18 @@
-# Getting Started
-- Hit run
-- Edit [App.tsx](#src/App.tsx) and watch it live update!
+# bittable statistics 多维表格简单统计
+A Lark Bittable Plugin that does simple statistical tasks.
 
-# Learn More
+## Features
+- Crosstabs / Pivot Table
+- Single/Multiple variable regression
+- Hypothesis test: single/independent/paired t test; Chi-square test; One-way anova
 
-You can learn more in the [Base Extension Development Guide](https://lark-technologies.larksuite.com/docx/HvCbdSzXNowzMmxWgXsuB2Ngs7d) or [多维表格扩展脚本开发指南](https://feishu.feishu.cn/docx/U3wodO5eqome3uxFAC3cl0qanIe).
 
-## Install packages
+## todo
 
-Install packages in Shell pane or search and add in Packages pane.
+- [] descriptive - histogram
+- [] correlation with test
+- [] avoid scientific notation in p value
+- [] pivot charts
+- [] pivot table support multi-select
+- [] charts?
+

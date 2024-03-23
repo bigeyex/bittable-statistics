@@ -16,6 +16,7 @@ export default function App() {
             bodyStyle={{ height: '90vh' }}
             style={{ width: '100%' }}
             items={[
+                { itemKey: 'crosstabs', text: T('modules.crosstabs'), icon: <IconBeaker /> },
                 { itemKey: 'regression', text: T('modules.regression'), icon: <IconArrowUpRight /> },
                 { itemKey: 'hypotest', text: T('modules.hypotest'), icon: <IconBeaker /> },
             ]}

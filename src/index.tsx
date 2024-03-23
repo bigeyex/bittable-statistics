@@ -9,12 +9,14 @@ import PageDescriptive from './components/PageDescriptive';
 import PageRegression from './components/PageRegression';
 import PageHypothesis from './components/PageHypothesis';
 import './locales/i18n' // 支持国际化
+import PageCrosstabs from './components/PageCrosstabs';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
         <LoadApp >
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<App />} />
+                    <Route path="/crosstabs" element={<PageCrosstabs />} />
                     <Route path="/hypotest" element={<PageHypothesis />} />
                     <Route path="/regression" element={<PageRegression />} />
                 </Routes>

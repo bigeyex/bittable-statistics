@@ -3,6 +3,7 @@ import metaReducer from './metaSlice'
 import descriptiveSlice from './descriptiveSlice'
 import regressionSlice from './regressionSlice'
 import hypothesisSlice from './hypothesisSlice'
+import crosstabsSlice from './crosstabsSlice'
 
 export default configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export default configureStore({
     descriptive: descriptiveSlice,
     regression: regressionSlice,
     hypothesis: hypothesisSlice,
+    crosstabs: crosstabsSlice,
   },
 })
 

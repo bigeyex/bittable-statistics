@@ -1,5 +1,6 @@
 {
   "modules": {
+    "crosstabs": "交叉表/数据透视表",
     "regression": "回归分析",
     "hypotest": "假设检验"
   },
@@ -19,12 +20,46 @@
     "categoricalField": "分类字段",
     
     "selectTestType": "请选择检验类型",
-    "testType": "检验类型"
+    "testType": "检验类型",
+
+    "chisquaredValue": "卡方统计量",
+    "statvalue": "统计量",
+    "dof": "自由度",
+    "oneSided": "单侧",
+    "twoSided": "双侧"
+  },
+
+  "crosstabs": {
+    "rowfield": "行字段",
+    "colfield": "列字段",
+    "aggmethod": "计算方式",
+    "selectaggmethod": "选择计算方式",
+    "valuefield": "计算值字段",
+    "totals": "合计",
+
+    "count": "计数",
+    "countFractionRow": "计数 - 行百分比",
+    "countFractionCol": "计数 - 列百分比",
+    "countFractionTotal": "计数 - 总百分比",
+
+    "countUnique": "计数不同",
+    
+    "sum": "求和",
+    "sumFractionRow": "求和 - 行百分比",
+    "sumFractionCol": "求和 - 列百分比",
+    "sumFractionTotal": "求和 - 总百分比",
+
+    "average": "求平均数",
+    "median": "求中位数",
+    "minimum": "求最小值",
+    "maximum": "求最大值"
+
   },
 
 
   "pleaseSelectField": "请选择字段",
   "dependentVariableY": "因变量(Y)",
   "independentVariableX": "自变量(X)",
-  "run": "执行"
+  "run": "计算",
+  "calculating": "计算中..."
 }
