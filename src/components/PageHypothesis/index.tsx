@@ -4,6 +4,7 @@ import { Button, Form, Select } from '@douyinfe/semi-ui';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllFields } from "../../store/metaSlice";
 import { setField, setTestType, doHypothesisTest } from "../../store/hypothesisSlice";
+import { T } from "../../locales/i18n";
 
 export default () => {
     const dispatch = useDispatch<any>();
@@ -15,7 +16,7 @@ export default () => {
     const allFieldOptions = fields.map(field =>(
         <Select.Option key={field.id} value={field.id}>{field.name}</Select.Option>
     ));
-    const makeFieldSelect = (key, label) => <Form.Select field={key} placeholder='请选择字段' label={label}>
+    const makeFieldSelect = (key, label) => <Form.Select field={key} placeholder={T('pleaseSelectField')} label={label}>
             {allFieldOptions}
         </Form.Select>
     const makeFieldInput = (key, label) => <Form.Input field={key} label={label} 
@@ -23,16 +24,16 @@ export default () => {
     
 
     const hypoTestTypes = {
-        'chiSquared': {name: '卡方检验(分类-分类)', 
-            options: <>{makeFieldSelect('yFieldId', '字段一')}{makeFieldSelect('xFieldId', '字段二')}</>},
-        'oneSampleTTest': {name: '单样本T检验(数值-固定数字)', 
-            options: <>{makeFieldSelect('yFieldId', '数值字段')}{makeFieldInput('param', '检验数值')}</>},
-        'indTTest': {name: '独立样本T检验(数值-数值)', 
-            options: <>{makeFieldSelect('yFieldId', '字段一')}{makeFieldSelect('xFieldId', '字段二')}</>},
-        'pairedTTest': {name: '配对样本T检验(数值-数值)', 
-            options: <>{makeFieldSelect('yFieldId', '字段一')}{makeFieldSelect('xFieldId', '字段二')}</>},
-        'oneWayAnova': {name: 'F检验/One-Way ANOVA(数值-分类)', 
-            options: <>{makeFieldSelect('yFieldId', '因变量（数值）')}{makeFieldSelect('xFieldId', '分类字段')}</>},
+        'chiSquared': {name: T('hypothesis.chisquared'), 
+            options: <>{makeFieldSelect('yFieldId', T('hypothesis.field1'))}{makeFieldSelect('xFieldId', T('hypothesis.field2'))}</>},
+        'oneSampleTTest': {name: T('hypothesis.oneSampleT'), 
+            options: <>{makeFieldSelect('yFieldId', T('hypothesis.numericField'))}{makeFieldInput('param', T('hypothesis.numberToTest'))}</>},
+        'indTTest': {name: T('hypothesis.independentSampleT'),
+            options: <>{makeFieldSelect('yFieldId', T('hypothesis.field2'))}{makeFieldSelect('xFieldId', T('hypothesis.field2'))}</>},
+        'pairedTTest': {name: T('hypothesis.pairedSampleT'),
+            options: <>{makeFieldSelect('yFieldId', T('hypothesis.field1'))}{makeFieldSelect('xFieldId', T('hypothesis.field2'))}</>},
+        'oneWayAnova': {name: T('hypothesis.oneWayAnova'),
+            options: <>{makeFieldSelect('yFieldId', T('hypothesis.independentVairableNumeric'))}{makeFieldSelect('xFieldId', T('hypothesis.categoricalField'))}</>},
     }
 
     useEffect(() => {
@@ -41,13 +42,13 @@ export default () => {
 
     return (
         <div>
-            <PageHeader title="假设检验"/>
+            <PageHeader title={T('modules.hypotest')}/>
             <div className="pageBody">
             <Form labelPosition='top' onSubmit={value => {dispatch(doHypothesisTest(value))}}>
                 <Form.Select
                     field="testType"
-                    placeholder='请选择检验类型'
-                    label="检验类型"
+                    placeholder={T('hypothesis.selectTestType')}
+                    label={T('hypothesis.testType')}
                     onChange={(value) => {dispatch(setTestType(value))}}
                 >
                     {Object.entries(hypoTestTypes).map(item =>
@@ -55,7 +56,7 @@ export default () => {
                     
                 </Form.Select>
                 {hypoTestTypes[testType].options}
-                <Button type="primary" htmlType="submit" className="btn-margin-right">执行检验</Button>
+                <Button type="primary" htmlType="submit" className="btn-margin-right">{T('run')}</Button>
             </Form>
             <div className="result-text">{result}</div>
             </div>

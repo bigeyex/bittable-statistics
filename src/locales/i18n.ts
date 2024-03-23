@@ -31,4 +31,5 @@ bitable.bridge.getLanguage().then((lng) => {
   }
 });
 
+export const T = i18n.t;
 export default i18n;

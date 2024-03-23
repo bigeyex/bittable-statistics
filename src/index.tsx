@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import PageDescriptive from './components/PageDescriptive';
 import PageRegression from './components/PageRegression';
 import PageHypothesis from './components/PageHypothesis';
-// import './locales/i18n' // 支持国际化
+import './locales/i18n' // 支持国际化
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
         <LoadApp >

@@ -1,3 +1,30 @@
 {
-  "title":"这是中文标题"
+  "modules": {
+    "regression": "回归分析",
+    "hypotest": "假设检验"
+  },
+  
+  "hypothesis": {
+    "chisquared": "卡方检验(分类-分类)",
+    "oneSampleT": "单样本T检验(数值-固定数字)",
+    "independentSampleT": "独立样本T检验(数值-数值)",
+    "pairedSampleT": "配对样本T检验(数值-数值)",
+    "oneWayAnova": "F检验/One-Way ANOVA(数值-分类)",
+
+    "field1": "字段一",
+    "field2": "字段二",
+    "numericField": "数值字段",
+    "numberToTest": "检验数值",
+    "independentVairableNumeric": "因变量（数值）",
+    "categoricalField": "分类字段",
+    
+    "selectTestType": "请选择检验类型",
+    "testType": "检验类型"
+  },
+
+
+  "pleaseSelectField": "请选择字段",
+  "dependentVariableY": "因变量(Y)",
+  "independentVariableX": "自变量(X)",
+  "run": "执行"
 }

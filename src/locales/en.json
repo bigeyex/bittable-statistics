@@ -1,3 +1,29 @@
 {
-  "title":"这是英文标题"
+  "modules": {
+    "regression": "Regression",
+    "hypotest": "Hypothesis Test"
+  },
+
+  "hypothesis": {
+    "chisquared": "Chi-Squared Test (Categorical-Categorical)",
+    "oneSampleT": "One-sample T Test (Numerical-Fixed Number)",
+    "independentSampleT": "Independent-sample T Test (Numeric-Numeric)",
+    "pairedSampleT": "Paired-sample T Test (Numeric-Numeric)",
+    "oneWayAnova": "F Test/One-Way ANOVA (Numeric-Categorical)",
+
+    "field1": "Field 1",
+    "field2": "Field 2",
+    "numericField": "Numeric Field",
+    "numberToTest": "Fixed Number to Test Against",
+    "independentVairableNumeric": "Dependent Variable (Numeric)",
+    "categoricalField": "Categorical Field",
+    
+    "selectTestType": "Select Test Type",
+    "testType": "Test Type"
+  },
+
+  "pleaseSelectField": "Select Field",
+  "dependentVariableY": "Dependent Variable (Y)",
+  "independentVariableX": "Independent Variable (X)",
+  "run": "Run"
 }
