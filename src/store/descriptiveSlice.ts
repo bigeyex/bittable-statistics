@@ -1,49 +1,53 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getValuesByFieldId, getValuesByFieldIds, getFieldMap } from '../lib/bittable';
+
 import { FieldType, bitable } from "@lark-base-open/js-sdk";
 import { StatFieldType } from '.';
-
-type DescriptiveResultType = {
-    fieldName: string,
-    values: any[],
-    type: StatFieldType,
-    max?: number,
-    min?: number, 
-    median?: number,
-    mean?: number, 
-}
+import { T } from '../locales/i18n';
 
 export const descriptiveSlice = createSlice({
     name: 'descriptive',
     initialState: {
-        results: [] as DescriptiveResultType[],
+        fieldNames: [],
+        allRecordsByFieldName: [],
+        result: '',
     }, 
     reducers: {
-        
+        setFieldNames(state, action) {
+            state.fieldNames = action.payload;
+        },
+
+        setResult(state, action) {
+            state.result = action.payload;
+        },
+
+        setAllRecordsByFieldName(state, action) {
+            state.allRecordsByFieldName = action.payload;
+        },
+
     },
 })
 
-// export const { setFields } = metaSlice.actions;
+export const { setFieldNames, setResult, setAllRecordsByFieldName } = descriptiveSlice.actions;
 
-export const changeDescriptiveFields = (fieldIdList) => async (dispatch, getState) => {
-    console.log(fieldIdList)
-    const table = await bitable.base.getActiveTable();
-    const fields = await getState().meta.fields;
-    // TODO: if the user just remove some fields, don't need to fetch all records
-    // TODO: process data more than 5000 lines 
-    const response = await table.getRecords({
-        pageSize: 5000
-    })
+function transpose(matrix) {
+    return matrix[0].map((col, i) => matrix.map(row => row[i]));
+}
 
-    console.log(response.records);
-    // result: {fieldName, values:[], type:categorical numeric, max, min, median, mean, ..}
-    /* records format: 
-        { recordId:ID, fields: [ fieldID: { 
-            case 1: number // could be FieldType.DateTime, like 1705420800000
-            case 2: [{type: 'text', text: '{TEXT}'}] // each line is one 
-            case 3: [{id: 'OPTION_ID', text: 'option_text'}] // multiple choice
-            case 4: {id: 'OPTION_ID', text: 'option_text'} // single choice
-         }}
-    */
+export const refreshAllRecords = () => async (dispatch, getState) => {
+    dispatch(setResult(T('calculating')));
+    const fieldMap = await getFieldMap();
+    const allFieldIds = Object.keys(fieldMap);
+    const allFieldNames = allFieldIds.map(fieldId => fieldMap[fieldId].name);
+    const allRecords = await getValuesByFieldIds(allFieldIds);
+    const allRecordsTransposed = transpose(allRecords);
+    let recordsByFieldName = {};
+    for (let i=0; i<allFieldNames.length; i++) {
+        recordsByFieldName[allFieldNames[i]] = allRecordsTransposed[i];
+    }
+
+    dispatch(setAllRecordsByFieldName(recordsByFieldName));
+    dispatch(setResult(''))
 }
 
 export default descriptiveSlice.reducer;

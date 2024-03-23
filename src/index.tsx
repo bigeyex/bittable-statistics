@@ -16,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<App />} />
+                    <Route path="/descriptive" element={<PageDescriptive />} />
                     <Route path="/crosstabs" element={<PageCrosstabs />} />
                     <Route path="/hypotest" element={<PageHypothesis />} />
                     <Route path="/regression" element={<PageRegression />} />

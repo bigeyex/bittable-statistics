@@ -8,6 +8,9 @@ function getValueOfField(fieldData, fieldType) {
     else if(Array.isArray(fieldData)) { // case 3: [{id: 'OPTION_ID', text: 'option_text'}] // multiple choice
         return (fieldData.map(item => item.text)).join("\n");
     }
+    else if(fieldData === null) {
+        return null;
+    }
     else if(typeof fieldData === "object") { // case 2: [{type: 'text', text: '{TEXT}'}] // each line is one 
         return fieldData.text;
     }

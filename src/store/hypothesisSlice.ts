@@ -51,7 +51,7 @@ async function chiSquaredTest({yFieldId, xFieldId}) {
     const chiSquared = stats.chiSquaredTest('xField', 'yField');
     return `${T('hypothesis.chisquaredValue')}: ${chiSquared.PearsonChiSquared}
             ${T('hypothesis.dof')}: ${chiSquared.degreesOfFreedom}
-            P < ${chiSquared.significance}`
+            P < ${chiSquared.significance.toFixed(3)}`
 }
 
 async function oneSampleTTest({yFieldId, param}) {
@@ -62,8 +62,8 @@ async function oneSampleTTest({yFieldId, param}) {
     const oneSample = stats.studentsTTestOneSample('yField', param);
     return `t-${T('hypothesis.statvalue')}: ${oneSample.tStatistic}
             ${T('hypothesis.dof')}: ${oneSample.degreesOfFreedom}
-            P (${T('hypothesis.oneSided')}) < ${oneSample.pOneSided}
-            P (${T('hypothesis.twoSided')}) < ${oneSample.pTwoSided}`
+            P (${T('hypothesis.oneSided')}) < ${oneSample.pOneSided.toFixed(3)}
+            P (${T('hypothesis.twoSided')}) < ${oneSample.pTwoSided.toFixed(3)}`
 }
 
 async function indTTest({yFieldId, xFieldId}) {
@@ -74,8 +74,8 @@ async function indTTest({yFieldId, xFieldId}) {
     const twoSamples = stats.studentsTTestTwoSamples('xField', 'yField', { dependent: false });
     return `t-${T('hypothesis.statvalue')}: ${twoSamples.tStatistic}
             ${T('hypothesis.dof')}: ${twoSamples.degreesOfFreedom}
-            P (${T('hypothesis.oneSided')}) < ${twoSamples.pOneSided}
-            P (${T('hypothesis.twoSided')}) < ${twoSamples.pTwoSided}`
+            P (${T('hypothesis.oneSided')}) < ${twoSamples.pOneSided.toFixed(3)}
+            P (${T('hypothesis.twoSided')}) < ${twoSamples.pTwoSided.toFixed(3)}`
 }
 
 async function pairedTTest({yFieldId, xFieldId}) {
@@ -86,8 +86,8 @@ async function pairedTTest({yFieldId, xFieldId}) {
     const twoSamples = stats.studentsTTestTwoSamples('xField', 'yField', { dependent: true });
     return `t-${T('hypothesis.statvalue')}: ${twoSamples.tStatistic}
             ${T('hypothesis.dof')}: ${twoSamples.degreesOfFreedom}
-            P (${T('hypothesis.oneSided')}) < ${twoSamples.pOneSided}
-            P (${T('hypothesis.twoSided')}) < ${twoSamples.pTwoSided}`
+            P (${T('hypothesis.oneSided')}) < ${twoSamples.pOneSided.toFixed(3)}
+            P (${T('hypothesis.twoSided')}) < ${twoSamples.pTwoSided.toFixed(3)}`
 }
 
 async function oneWayAnova({yFieldId, xFieldId}) {
@@ -102,7 +102,7 @@ async function oneWayAnova({yFieldId, xFieldId}) {
     }
     const anovaResult = oneWayANOVA(...Object.values(valuesByX));
     return `F-${T('hypothesis.statvalue')}: ${anovaResult.statistic}
-            P < ${anovaResult.pValue}`;
+            P < ${anovaResult.pValue.toFixed(3)}`;
 }
 
 

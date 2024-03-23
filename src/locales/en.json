@@ -1,8 +1,22 @@
 {
   "modules": {
+    "descriptive": "Descriptive Statistics",
     "crosstabs": "CrossTabs / Pivot Table",
     "regression": "Regression",
     "hypotest": "Hypothesis Test"
+  },
+
+  "fields": "Fields",
+
+  "descriptive": {
+    "missing": "Missing",
+    "avg": "Avg",
+    "sd": "SD",
+    "min": "Min",
+    "quantile25": "25% Percentile",
+    "median": "Median",
+    "quantile75": "75% Percentile",
+    "max": "Max"
   },
 
   "hypothesis": {

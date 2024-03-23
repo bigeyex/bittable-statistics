@@ -1,8 +1,22 @@
 {
   "modules": {
+    "descriptive": "描述性统计",
     "crosstabs": "交叉表/数据透视表",
     "regression": "回归分析",
     "hypotest": "假设检验"
+  },
+
+  "fields": "字段",
+
+  "descriptive": {
+    "missing": "缺失值",
+    "avg": "平均值",
+    "sd": "标准差",
+    "min": "最小值",
+    "quantile25": "25%分位",
+    "median": "中位数",
+    "quantile75": "75%分位",
+    "max": "最大值"
   },
   
   "hypothesis": {
