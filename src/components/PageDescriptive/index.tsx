@@ -3,7 +3,7 @@ import PageHeader from "../PageHeader"
 import { Button, Form, Select } from '@douyinfe/semi-ui';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllFields } from "../../store/metaSlice";
-import { refreshAllRecords, setFieldNames } from "../../store/descriptiveSlice";
+import { refreshAllRecords, setSelectedFieldIds } from "../../store/descriptiveSlice";
 import { T } from "../../locales/i18n";
 import Plot from 'react-plotly.js';
 import { getDescriptiveResults } from "../../lib/descriptive";
@@ -12,12 +12,10 @@ import './style.css';
 export default () => {
     const dispatch = useDispatch<any>()
     const fields = useSelector((state: any) =>state.meta.fields)
-    const selectedFieldNames = useSelector((state: any) =>state.descriptive.fieldNames);
-    const allRecordsByFieldName = useSelector((state: any) =>state.descriptive.allRecordsByFieldName);
+    const descriptiveResults = useSelector((state: any) =>state.descriptive.descriptiveResults);
     const result = useSelector((state: any) =>state.descriptive.result);
 
-    const descriptiveResults = getDescriptiveResults(allRecordsByFieldName, selectedFieldNames, fields);
-    const buildCategoricalDescriptive = (desc) => <div className="desc-item">
+    const buildCategoricalDescriptive = (desc) => <div className="desc-item" key={desc.name} >
         <div className="desc-title">{desc.name}</div>
         <div className="desc-facts">n: {desc.n}, {T('descriptive.missing')}: {desc.missing}</div>
         <div className="desc-chart">
@@ -28,7 +26,7 @@ export default () => {
         </div>
     </div>
 
-    const buildNumericalDescriptive = (desc) => <div className="desc-item">
+    const buildNumericalDescriptive = (desc) => <div className="desc-item" key={desc.name}>
         <div className="desc-title">{desc.name}</div>
         <div className="desc-facts">
             <p>
@@ -68,21 +66,21 @@ export default () => {
         <div>
             <PageHeader title={T('modules.descriptive')}/>
             <div className="pageBody">
-                <Form labelPosition='top'>
+                <Form labelPosition='top' onSubmit={value => {dispatch(refreshAllRecords(value))}}>
                     <Form.Select
-                            field="yfield"
+                            field="yfields"
                             placeholder={T('pleaseSelectField')}
                             label={T('fields')}
                             multiple
-                            onChange={(value) => {dispatch(setFieldNames(value))}}
+                            onChange={(value) => {dispatch(setSelectedFieldIds(value))}}
                         >
                             {
                                 fields.map(field =>(
-                                    <Select.Option key={field.id} value={field.name}>{field.name}</Select.Option>
+                                    <Select.Option key={field.id} value={field.id}>{field.name}</Select.Option>
                                 ))
                             }
                     </Form.Select>
-                    <Button onClick={()=>dispatch(refreshAllRecords())}>{T('run')}</Button>
+                    <Button type="primary" htmlType="submit" className="btn-margin-right">{T('run')}</Button>
                 </Form>
                 <div className="result-text">{result}</div>
                 <div className="desc-area">{descriptiveComponents}</div>

@@ -4,49 +4,54 @@ import { getValuesByFieldId, getValuesByFieldIds, getFieldMap } from '../lib/bit
 import { FieldType, bitable } from "@lark-base-open/js-sdk";
 import { StatFieldType } from '.';
 import { T } from '../locales/i18n';
+import { getDescriptiveResults } from '../lib/descriptive';
 
 export const descriptiveSlice = createSlice({
     name: 'descriptive',
     initialState: {
-        fieldNames: [],
-        allRecordsByFieldName: [],
+        selectedFieldIds: [],
+        allRecordsByFieldId: [],
         result: '',
+        descriptiveResults: [],
     }, 
     reducers: {
-        setFieldNames(state, action) {
-            state.fieldNames = action.payload;
+        setSelectedFieldIds(state, action) {
+            state.selectedFieldIds = action.payload;
         },
 
         setResult(state, action) {
             state.result = action.payload;
         },
 
-        setAllRecordsByFieldName(state, action) {
-            state.allRecordsByFieldName = action.payload;
+        setAllRecordsByFieldId(state, action) {
+            state.allRecordsByFieldId = action.payload;
+        },
+
+        setDescriptiveResults(state, action) {
+            state.descriptiveResults = action.payload;
         },
 
     },
 })
 
-export const { setFieldNames, setResult, setAllRecordsByFieldName } = descriptiveSlice.actions;
+export const { setSelectedFieldIds, setResult, setAllRecordsByFieldId, 
+    setDescriptiveResults } = descriptiveSlice.actions;
 
 function transpose(matrix) {
     return matrix[0].map((col, i) => matrix.map(row => row[i]));
 }
 
-export const refreshAllRecords = () => async (dispatch, getState) => {
+export const refreshAllRecords = (payload) => async (dispatch, getState) => {
     dispatch(setResult(T('calculating')));
-    const fieldMap = await getFieldMap();
-    const allFieldIds = Object.keys(fieldMap);
-    const allFieldNames = allFieldIds.map(fieldId => fieldMap[fieldId].name);
-    const allRecords = await getValuesByFieldIds(allFieldIds);
+    const selectedFieldIds = payload.yfields;
+    const fieldMetaMap = await getFieldMap();
+    const allRecords = await getValuesByFieldIds(selectedFieldIds);
     const allRecordsTransposed = transpose(allRecords);
-    let recordsByFieldName = {};
-    for (let i=0; i<allFieldNames.length; i++) {
-        recordsByFieldName[allFieldNames[i]] = allRecordsTransposed[i];
+    let recordsByFieldId = {};
+    for (let i=0; i<selectedFieldIds.length; i++) {
+        recordsByFieldId[selectedFieldIds[i]] = allRecordsTransposed[i];
     }
-
-    dispatch(setAllRecordsByFieldName(recordsByFieldName));
+    dispatch(setDescriptiveResults(getDescriptiveResults(recordsByFieldId, selectedFieldIds, fieldMetaMap)));
     dispatch(setResult(''))
 }
 

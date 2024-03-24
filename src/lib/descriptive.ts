@@ -2,10 +2,10 @@ import Statistics from 'statistics.js';
 import { FieldType, IFieldMeta } from "@lark-base-open/js-sdk";
 
 
-function getFieldTypeMap(allFields) {
+function getFieldMetaMap(fieldMetas) {
     let fieldTypeMap = {};
-    for (let field of allFields) {
-        fieldTypeMap[field.name] = field.type;
+    for (let field of fieldMetas) {
+        fieldTypeMap[field.id] = field;
     }
     return fieldTypeMap;
 }
@@ -15,23 +15,22 @@ function getFieldTypeMap(allFields) {
     for categorical, draw a bar chart of top 6
     for numeric, print avg, sd, min, 25%, median, 75%, max,  draw histogram
 */
-export function getDescriptiveResults(records, fieldNames, allFields) {
-    if (records.length === 0 || fieldNames.length === 0) {
+export function getDescriptiveResults(records, selectedFieldIds, fieldMetaMap) {
+    if (records.length === 0 || selectedFieldIds.length === 0) {
         return [];
     }
 
     const stats = new Statistics([], {});
-    const fieldTypeMap = getFieldTypeMap(allFields);
     let descriptiveResults:object[] = [];
 
-    for (let fieldName of fieldNames) {
-        const data = records[fieldName]
+    for (let fieldId of selectedFieldIds) {
+        const data = records[fieldId]
         const nonNullData = data.filter(x => x !== null);
         let fieldDescriptive = {
             n: data.length,
-            name: fieldName,
+            name: fieldMetaMap[fieldId].name,
             missing: data.length - nonNullData.length,
-            isNumeric: fieldTypeMap[fieldName] === FieldType.Number
+            isNumeric: fieldMetaMap[fieldId].type === FieldType.Number
         };
 
         if (fieldDescriptive.isNumeric) {

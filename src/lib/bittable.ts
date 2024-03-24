@@ -37,15 +37,18 @@ export async function getValuesByFieldIds(fieldIds) {
     const table = await bitable.base.getActiveTable();
 
     const fieldMetaMap = await getFieldMap();
-    const recordList = await table.getRecordList();
+    const fieldList:any[] = [];
+    for (const fieldId of fieldIds) {
+        const field:any = await table.getFieldById(fieldId);
+        fieldList.push(field);
+    }
+    const recordIdList = await table.getRecordIdList();
     let result:any[] = [];
-    for (const record of recordList) {
+    for (const recordId of recordIdList) {
         let recordValues:any[] = [];
-        for (const fieldId of fieldIds) {
-            const fieldType = fieldMetaMap[fieldId];
-            const cell = await record.getCellByField(fieldId);
-            const val = await cell.getValue();
-            recordValues.push(getValueOfField(val, fieldType));
+        for (const field of fieldList) {
+            const val = await field.getValue(recordId);
+            recordValues.push(getValueOfField(val, field.type));
         }
         result.push(recordValues);
     }

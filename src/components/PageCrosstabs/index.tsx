@@ -97,7 +97,7 @@ export default () => {
                 <Button type="primary" htmlType="submit" className="btn-margin-right">{T('run')}</Button>
             </Form>
             <div className="result-text">{result}</div>
-            { allRecords.length > 0 && rowFieldNames.length > 0 && colFieldNames.length > 0 ?
+            { allRecords.length > 0 && rowFieldNames.length > 0 ?
                     <PivotTable data={allRecords} rows={rowFieldNames} 
                         cols={colFieldNames} vals={[valueFieldName]} aggregatorName={aggMethod}/>
             :""}
