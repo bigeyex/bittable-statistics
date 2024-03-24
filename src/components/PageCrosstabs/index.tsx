@@ -3,7 +3,7 @@ import PageHeader from "../PageHeader"
 import { Button, Form, Select } from '@douyinfe/semi-ui';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllFields } from "../../store/metaSlice";
-import { setRowFieldNames, setColFieldNames, setAggMethod, setValueFieldName, doCrossTabs } from "../../store/crosstabsSlice";
+import { setAggMethod, doCrossTabs } from "../../store/crosstabsSlice";
 import { T } from "../../locales/i18n";
 import PivotTable from "../../lib/reactPivitTable/pivotTable";
 import '../../lib/reactPivitTable/pivottable.css';
@@ -13,10 +13,7 @@ export default () => {
     const fields = useSelector((state: any) =>state.meta.fields);
     const result = useSelector((state: any) =>state.crosstabs.result);
     const aggMethod = useSelector((state: any) =>state.crosstabs.aggMethod);
-    const rowFieldNames = useSelector((state: any) =>state.crosstabs.rowFieldNames);
-    const colFieldNames = useSelector((state: any) =>state.crosstabs.colFieldNames);
-    const valueFieldName = useSelector((state: any) =>state.crosstabs.valueFieldName);
-    const allRecords = useSelector((state: any) =>state.crosstabs.allRecords);
+    const crossTabInfo = useSelector((state: any) =>state.crosstabs.crossTabInfo);
 
     const allFieldOptions = fields.map(field =>(
         <Select.Option key={field.id} value={field.id}>{field.name}</Select.Option>
@@ -52,8 +49,6 @@ export default () => {
                     multiple
                     placeholder={T('pleaseSelectField')}
                     label={T('crosstabs.rowfield')}
-                    onChange={(value:any) => {dispatch(setRowFieldNames(value.map(val => val.label)))}}
-                    onChangeWithObject={true}
                 >
                     {
                         fields.map(field =>(
@@ -66,8 +61,6 @@ export default () => {
                     multiple
                     placeholder={T('pleaseSelectField')}
                     label={T('crosstabs.colfield')}
-                    onChange={(value:any) => {dispatch(setColFieldNames(value.map(val => val.label)))}}
-                    onChangeWithObject={true}
                 >
                     {
                         fields.map(field =>(
@@ -88,18 +81,16 @@ export default () => {
                 </Form.Select>
                 {aggTypes[aggMethod].needField ? 
                 <Form.Select field="valueField" placeholder={T('pleaseSelectField')} 
-                            label={T("crosstabs.valuefield")}
-                            onChange={(value:any) => {dispatch(setValueFieldName(value.label))}}
-                            onChangeWithObject={true}>
+                            label={T("crosstabs.valuefield")}>
                     {allFieldOptions}
                 </Form.Select>
                  : ''}
                 <Button type="primary" htmlType="submit" className="btn-margin-right">{T('run')}</Button>
             </Form>
             <div className="result-text">{result}</div>
-            { allRecords.length > 0 && rowFieldNames.length > 0 ?
-                    <PivotTable data={allRecords} rows={rowFieldNames} 
-                        cols={colFieldNames} vals={[valueFieldName]} aggregatorName={aggMethod}/>
+            { crossTabInfo !== null && crossTabInfo.rowFieldNames.length > 0 ?
+                    <PivotTable data={crossTabInfo.allRecords} rows={crossTabInfo.rowFieldNames} 
+                        cols={crossTabInfo.colFieldNames} vals={[crossTabInfo.valueFieldName]} aggregatorName={aggMethod}/>
             :""}
             </div>
         </div>

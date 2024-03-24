@@ -9,12 +9,9 @@ A Lark Bittable Plugin that does simple statistical tasks.
 
 ## todo
 
-- [] move pivot table to ids
-- [] change bar style to show labels
 - [] correlation with test
 - [] proportion tests
 - [] tests support missing values
 - [] pivot charts
-- [] pivot table support multi-select
 - [] charts?
 

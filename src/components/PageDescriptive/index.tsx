@@ -19,8 +19,8 @@ export default () => {
         <div className="desc-title">{desc.name}</div>
         <div className="desc-facts">n: {desc.n}, {T('descriptive.missing')}: {desc.missing}</div>
         <div className="desc-chart">
-            <Plot data={[ {type:'bar', x:desc.x, y:desc.y} ]}
-                layout={ {width: 320, height: 140, autosize:false, margin: {l:20,r:0,b:15,t:0}} }
+            <Plot data={[ {type:'bar', x:desc.y, y:desc.x, orientation:'h'} ]}
+                layout={ {width: 320, height: 140, autosize:false, margin: {r:0,b:15,t:0}} }
                 config={ {displayModeBar: false} }
                 orientation="h"/>
         </div>

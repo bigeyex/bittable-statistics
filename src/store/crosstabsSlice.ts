@@ -13,10 +13,8 @@ export const crosstabsSlice = createSlice({
     initialState: {
         // field values 
         aggMethod: 'Count',
-        rowFieldNames: [],
-        colFieldNames: [],
-        valueFieldName: null,
-        allRecords: [],
+
+        crossTabInfo: null,
 
         // result
         result: '',
@@ -30,21 +28,9 @@ export const crosstabsSlice = createSlice({
         setAggMethod(state, action) {
             state.aggMethod = action.payload;
         },
-        
-        setRowFieldNames(state, action) {
-            state.rowFieldNames = action.payload;
-        },
 
-        setColFieldNames(state, action) {
-            state.colFieldNames = action.payload;
-        },
-
-        setValueFieldName(state, action) {
-            state.valueFieldName = action.payload;
-        },
-
-        setAllRecords(state, action) {
-            state.allRecords = action.payload;
+        setCrossTabInfo(state, action) {
+            state.crossTabInfo = action.payload;
         },
 
         setResult(state, action) {
@@ -58,17 +44,25 @@ function statDataFromRecords(records, labels) {
     return records.map(record => Object.fromEntries(record.map((field, index) => [labels[index], field])));
 }
 
-export const { setField, setAggMethod, setRowFieldNames, setColFieldNames, setValueFieldName, setAllRecords, setResult } = crosstabsSlice.actions;
+export const { setField, setAggMethod, setCrossTabInfo, setResult } = crosstabsSlice.actions;
 
 export const doCrossTabs = (payload) => async (dispatch, getState) => {
     dispatch(setResult(T('calculating')));
     const fieldMap = await getFieldMap();
-    const allFieldIds = Object.keys(fieldMap);
-    const allFieldNames = allFieldIds.map(fieldId => fieldMap[fieldId].name);
-    const allRecords = await getValuesByFieldIds(allFieldIds);
+    let relaventFieldIds = [...payload.rowFields, ...payload.colFields];
+    if (payload.valueField) {
+        relaventFieldIds.push(payload.valueField);
+    }
+    const allFieldNames = relaventFieldIds.map(fieldId => fieldMap[fieldId].name);
+    const allRecords = await getValuesByFieldIds(relaventFieldIds);
     const allRecordsInMap = statDataFromRecords(allRecords, allFieldNames);
 
-    dispatch(setAllRecords(allRecordsInMap));
+    dispatch(setCrossTabInfo({
+        allRecords: allRecordsInMap,
+        rowFieldNames: payload.rowFields.map(fieldId => fieldMap[fieldId].name),
+        colFieldNames: payload.colFields.map(fieldId => fieldMap[fieldId].name),
+        valueFieldName: payload.valueField ? fieldMap[payload.valueField].name : null,
+    }));
     
     dispatch(setResult(''))
 }
