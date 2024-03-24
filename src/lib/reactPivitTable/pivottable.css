@@ -15,12 +15,18 @@
     vertical-align: top;
 }
 
+.figureNote {
+    font-size: 12px;
+    margin: 10px 15px;
+    color: #333;
+}
+
 table.pvtTable {
     font-size: 8pt;
     text-align: left;
     border-collapse: collapse;
     margin-top: 3px;
-    margin-left: 3px;
+    margin-left: 15px;
     font-family: Verdana;
 }
 table.pvtTable thead tr th,

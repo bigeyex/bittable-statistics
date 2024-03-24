@@ -2,11 +2,20 @@
   "modules": {
     "descriptive": "描述性统计",
     "crosstabs": "交叉表/数据透视表",
+    "correlation": "相关分析",
     "regression": "回归分析",
     "hypotest": "假设检验"
   },
 
+  "methods": "方法",
   "fields": "字段",
+
+  "correlation": {
+    "pearson": "Pearson (仅用于量化数值)",
+    "spearman": "Spearman's Rho (可用于排序数值)",
+    "kendall": "Kendall's Tau (可用于排序数值)",
+    "pnote": "标*为p<0.05; 标**为p<0.01"
+  },
 
   "descriptive": {
     "missing": "缺失值",

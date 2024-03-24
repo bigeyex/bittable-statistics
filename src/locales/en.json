@@ -2,11 +2,20 @@
   "modules": {
     "descriptive": "Descriptive Statistics",
     "crosstabs": "CrossTabs / Pivot Table",
+    "correlation": "Correlation",
     "regression": "Regression",
     "hypotest": "Hypothesis Test"
   },
 
+  "methods": "Method",
   "fields": "Fields",
+
+  "correlation": {
+    "pearson": "Pearson (Interval Variable)",
+    "spearman": "Spearman's Rho (Interval or Ordinal)",
+    "kendall": "Kendall's Tau (Interval or Ordinal)",
+    "pnote": "* for p<0.05; ** for p<0.01"
+  },
 
   "descriptive": {
     "missing": "Missing",

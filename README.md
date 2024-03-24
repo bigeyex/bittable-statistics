@@ -9,7 +9,6 @@ A Lark Bittable Plugin that does simple statistical tasks.
 
 ## todo
 
-- [] correlation with test
 - [] proportion tests
 - [] tests support missing values
 - [] pivot charts
