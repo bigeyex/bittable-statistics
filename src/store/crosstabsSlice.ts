@@ -49,6 +49,7 @@ export const { setField, setAggMethod, setCrossTabInfo, setResult } = crosstabsS
 export const doCrossTabs = (payload) => async (dispatch, getState) => {
     dispatch(setResult(T('calculating')));
     const fieldMap = await getFieldMap();
+    if (!payload.colFields) payload.colFields = [];
     let relaventFieldIds = [...payload.rowFields, ...payload.colFields];
     if (payload.valueField) {
         relaventFieldIds.push(payload.valueField);
