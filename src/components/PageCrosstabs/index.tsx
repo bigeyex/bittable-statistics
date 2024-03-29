@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllFields } from "../../store/metaSlice";
 import { setAggMethod, doCrossTabs } from "../../store/crosstabsSlice";
 import { T } from "../../locales/i18n";
-import PivotTable from "../../lib/reactPivitTable/pivotTable";
+import PivotTable from "../../lib/reactPivitTable/PivotTable";
 import '../../lib/reactPivitTable/pivottable.css';
 
 export default () => {
