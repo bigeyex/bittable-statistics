@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { FieldType, bitable } from "@lark-base-open/js-sdk";
 import { StatFieldType } from '.';
-import { SimpleLinearRegression, MultipleLinearRegression } from 'statsmodels-js';
+import { SimpleLinearRegression, MultipleLinearRegression } from '../lib/statsmodels';
 import { getValuesByFieldId, getValuesByFieldIds, getFieldMap } from '../lib/bittable';
 
 

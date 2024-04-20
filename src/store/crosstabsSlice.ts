@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { FieldType, bitable } from "@lark-base-open/js-sdk";
 import { StatFieldType } from '.';
-import { oneWayANOVA } from 'statsmodels-js';
+import { oneWayANOVA } from '../lib/statsmodels';
 import Statistics from 'statistics.js';
 
 import { getValuesByFieldId, getValuesByFieldIds, getFieldMap } from '../lib/bittable';

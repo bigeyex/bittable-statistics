@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { FieldType, bitable } from "@lark-base-open/js-sdk";
 import { StatFieldType } from '.';
-import { pearsonr } from 'statsmodels-js';
+import { pearsonr } from '../lib/statsmodels';
 import Statistics from 'statistics.js';
 
 import { getValuesByFieldId, getValuesByFieldIds, getFieldMap } from '../lib/bittable';
