@@ -46,7 +46,6 @@ async function chiSquaredTest({yFieldId, xFieldId}) {
     const allRecords = await getValuesByFieldIds([yFieldId, xFieldId]);
     const statData = statDataFromRecords(allRecords, ['yField', 'xField']);
     const statVars = { xField: {scale: 'nominal'}, yField: {scale: 'nominal'} };
-    console.log(statData, statVars);
     const stats = new Statistics(statData, statVars);
     const chiSquared = stats.chiSquaredTest('xField', 'yField');
     return `${T('hypothesis.chisquaredValue')}: ${chiSquared.PearsonChiSquared}

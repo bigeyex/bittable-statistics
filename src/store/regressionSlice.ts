@@ -67,7 +67,6 @@ export const doRegression = (fieldIdList) => async (dispatch, getState) => {
             R2 Score = ${regressionResult['r2Score']} `));
     }
     
-    // console.log(SimpleLinearRegression);
 
 }
 

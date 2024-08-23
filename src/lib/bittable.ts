@@ -1,4 +1,4 @@
-import { FieldType, bitable, IFieldMeta } from "@lark-base-open/js-sdk";
+import { FieldType, bitable, IFieldMeta, IRecord } from "@lark-base-open/js-sdk";
 
 
 function getValueOfField(fieldData, fieldType) {
@@ -42,7 +42,21 @@ export async function getValuesByFieldIds(fieldIds) {
         const field:any = await table.getFieldById(fieldId);
         fieldList.push(field);
     }
-    const recordIdList = await table.getRecordIdList();
+
+    let recordIdList:string[] = []
+    let hasMorePage = false
+    let nextPageToken: number | undefined = undefined
+    do {
+        const { hasMore, pageToken, recordIds } = await table.getRecordIdListByPage({
+            pageToken: nextPageToken,
+            pageSize: 200
+        })
+        nextPageToken = pageToken
+        hasMorePage = hasMore
+        recordIdList = recordIdList.concat(recordIds)
+    } while (hasMorePage)
+
+    await table.getRecordIdList();
     let result:any[] = [];
     for (const recordId of recordIdList) {
         let recordValues:any[] = [];

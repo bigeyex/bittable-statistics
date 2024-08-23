@@ -68,7 +68,6 @@ export const doCorrelation = (payload) => async (dispatch, getState) => {
                 }
                 else { // kendall's tau
                     const result = stats.kendallsTau(fieldIds[i], fieldIds[j]);
-                    console.log('tau', result);
                     correlationResult = {
                         v: result.b.tauB.toFixed(3),
                         p: result.b.pTwoTailed,
